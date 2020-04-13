@@ -1,14 +1,12 @@
-
-
 cc.Class({
     extends: cc.Component,
 
     properties: {
-    	testItemValue : {
+        tutorialItemValue : {
             default : null,
             type : cc.Label,
         },
-        _testID: {
+        _tutorialId:{
             default : null,
         },
     },
@@ -27,14 +25,14 @@ cc.Class({
     },
 
     onTouchItemStart(e){
-        let eventTestItem = new cc.Event.EventCustom('eventTestItem', true);
-        eventTestItem.setUserData({value : this.testItemValue.string, id: this._testID});
-        cc.systemEvent.dispatchEvent(eventTestItem);
+        let eventTutorialItem = new cc.Event.EventCustom('eventTutorialItem', true);
+        eventTutorialItem.setUserData({value : this.tutorialItemValue.string, id: this._tutorialId});
+        cc.systemEvent.dispatchEvent(eventTutorialItem);
     },
 
-    initTest(name,id){
-        this.testItemValue.string = name;
-        this._testID = id;
+    initTutorial(name, id){
+        this.tutorialItemValue.string = name;
+        this._tutorialId = id
     },
 
     start () {

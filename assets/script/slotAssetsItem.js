@@ -21,7 +21,10 @@ cc.Class({
             default : null,
             type : cc.Sprite,
         },
-        _userId : {
+        _assetsId : {
+            default : null,
+        },
+        _assetsName : {
             default : null,
         }
     },
@@ -33,13 +36,14 @@ cc.Class({
 
     onTouchItemStart(){
         let cloneMechanic = new cc.Event.EventCustom('TouchAssetsItem', true);
-        cloneMechanic.setUserData({id : this._userId});
+        cloneMechanic.setUserData({id : this._assetsId, name : this._assetsName});
         cc.systemEvent.dispatchEvent(cloneMechanic);
     },
 
-    init(id){
+    init(id, name){
         this.imgAssetsItem.spriteFrame = this[`type_${id}`];
-        this._userId = id;
+        this._assetsId = id;
+        this._assetsName = name;
     },
 
     start () {

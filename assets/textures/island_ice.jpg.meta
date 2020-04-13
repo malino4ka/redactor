@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "babffe03-b424-4b54-af5e-f75ffb675687",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 600,
+  "height": 432,
+  "platformSettings": {},
+  "subMetas": {
+    "island_ice": {
+      "ver": "1.0.4",
+      "uuid": "6aee2b94-d9c0-4bec-9427-3bb81bcb35b0",
+      "rawTextureUuid": "babffe03-b424-4b54-af5e-f75ffb675687",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 600,
+      "height": 432,
+      "rawWidth": 600,
+      "rawHeight": 432,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

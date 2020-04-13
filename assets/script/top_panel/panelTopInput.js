@@ -1,3 +1,11 @@
+// let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
+
+let editOptions = {
+    stars:{},
+    hearts:{},
+    timeRound:'',
+    level:'',
+}
 
 cc.Class({
     extends: cc.Component,
@@ -46,15 +54,6 @@ cc.Class({
  			type: cc.EditBox,
  		},
 
-/* ========== helpers ============*/
-		
-		_inputArrayStars:{
- 			default: {},
- 		},
-
- 		_inputArrayHearts:{
- 			default: {},
- 		},
 
     },
 
@@ -63,21 +62,22 @@ cc.Class({
     },
 
     onEventClickSave(e){
-
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
- 
-    	this._inputArrayStars[1] = this.stars_1.string;
-    	this._inputArrayStars[2] = this.stars_2.string;
-    	this._inputArrayStars[3] = this.stars_3.string;
 
-    	this._inputArrayHearts[1] = this.hearts_1.string;
-    	this._inputArrayHearts[2] = this.hearts_2.string;
-    	this._inputArrayHearts[3] = this.hearts_3.string;
+        editOptions.stars[1] = this.stars_1.string;
+        editOptions.stars[2] = this.stars_2.string;
+        editOptions.stars[3] = this.stars_3.string;
 
-        userData.Stars = this._inputArrayStars;
-        userData.Hearts = this._inputArrayHearts;
-        userData.TimeRound = this.timeLevel.string;
-        userData.Level = this.chooseLevel.string;
+        editOptions.hearts[1] = this.hearts_1.string;
+        editOptions.hearts[2] = this.hearts_2.string;
+        editOptions.hearts[3] = this.hearts_3.string;
+
+
+        editOptions.timeRound = this.timeLevel.string;
+        editOptions.level = this.chooseLevel.string;
+
+        userData.settings = editOptions;
+
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
     },
 

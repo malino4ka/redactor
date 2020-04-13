@@ -4,9 +4,12 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-    	packajeItemValue : {
+    	packageItemValue : {
             default : null,
             type : cc.Label,
+        },
+        _packageId:{
+            default : null,
         },
     },
 
@@ -24,13 +27,14 @@ cc.Class({
     },
 
     onTouchItemStart(e){
-    	let eventPackajeItem = new cc.Event.EventCustom('eventPackajeItem', true);
-        eventPackajeItem.setUserData({value : this.packajeItemValue.string});
-        cc.systemEvent.dispatchEvent(eventPackajeItem);
+    	let eventPackageItem = new cc.Event.EventCustom('eventPackageItem', true);
+        eventPackageItem.setUserData({value : this.packageItemValue.string, id: this._packageId});
+        cc.systemEvent.dispatchEvent(eventPackageItem);
     },
 
-    initPackaje(id){
-    	this.packajeItemValue.string = id;
+    initPackage(name, id){
+    	this.packageItemValue.string = name;
+        this._packageId = id
     },
 
     start () {

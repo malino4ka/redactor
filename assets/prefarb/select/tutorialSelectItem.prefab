@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "testSelectItem",
+    "_name": "tutorialSelectItem",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -79,7 +79,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "testSelectImg",
+    "_name": "selectTutorialImg",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -101,9 +101,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 55,
-      "g": 128,
-      "b": 96,
+      "r": 95,
+      "g": 66,
+      "b": 66,
       "a": 255
     },
     "_contentSize": {
@@ -147,7 +147,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "optionTestValue",
+    "_name": "optionTutorialValue",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -247,9 +247,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "0de2aa20-a5ff-43cf-9b4a-4b4501681e93"
+      "__uuid__": "0537026c-c833-4b23-a810-57b20bae5c80"
     },
-    "fileId": "fewOEygfJNd403ys9l5Xgk",
+    "fileId": "3ceXVGMsdCi764ycNNl8Vw",
     "sync": false
   },
   {
@@ -290,23 +290,23 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "0de2aa20-a5ff-43cf-9b4a-4b4501681e93"
+      "__uuid__": "0537026c-c833-4b23-a810-57b20bae5c80"
     },
-    "fileId": "c1TQKxM/pHhp0p+fRkzsEd",
+    "fileId": "790cxLP/NMu4NvSf3/DgtG",
     "sync": false
   },
   {
-    "__type__": "c33431RoYdNOIvXngjRhmju",
+    "__type__": "7a8a9JSBSlG9bdKr2n/uqMW",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "testItemValue": {
+    "tutorialItemValue": {
       "__id__": 4
     },
-    "_testID": null,
+    "_tutorialId": null,
     "_id": ""
   },
   {
@@ -315,9 +315,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "0de2aa20-a5ff-43cf-9b4a-4b4501681e93"
+      "__uuid__": "0537026c-c833-4b23-a810-57b20bae5c80"
     },
-    "fileId": "48qf3fOuNBiL+FlZKyuPL7",
+    "fileId": "d57Bl6lc1CApq7M/xa+JXq",
     "sync": false
   }
 ]

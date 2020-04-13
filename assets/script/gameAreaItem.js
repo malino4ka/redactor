@@ -69,12 +69,6 @@ cc.Class({
         Delta:{
             default : 10,
         }, 
-        // _side: {
-        //     default : 0,
-        // },
-        // _eKey: {
-        //     default : 0,
-        // },
         _maxPosX :{
             default : null,
         },
@@ -99,6 +93,10 @@ cc.Class({
         stepRotation : {
             default : 10,
         },
+        _itemName: {
+            default : null,
+        },
+
     },
 
     onLoad () {
@@ -127,9 +125,22 @@ cc.Class({
         this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchItemMove, this);
     },
 
-    init(id){
-        cc.log(this[`type_${id}`])
+    init(id,name,active){
         this.img.spriteFrame = this[`type_${id}`];
+        this.setItemName(name);
+        this.setItemActive(active);
+    },
+
+    setItemActive(active){
+        return active;
+    },
+
+    setItemName(name){
+        this._itemName = name;
+    },
+
+    getItemName(){
+        return this._itemName;
     },
 
     closeItemClick(){

@@ -1,4 +1,11 @@
+import nameRandomItems from "./helpers/mapRandomItems";
 
+// let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
+
+let ranodomObject = {
+        hurricane:{active : false},
+        storm:{active : false},
+}
 
 cc.Class({
     extends: cc.Component,
@@ -12,26 +19,53 @@ cc.Class({
             default : null,
             type : cc.SpriteFrame,
         },
+
+        toggleActive:{
+            default : null,
+            type : cc.Toggle,
+        },
+
         imgRandomItem : {
             default : null,
             type : cc.Sprite,
         },
-        _userId : {
+        _randomId: {
             default : null,
-        }
+        },
+        _randomName: {
+            default : null,
+        },
 
     },
 
 
     onLoad () {
+        this.toggleActive.node.on('toggle', this.onTouchItemStart, this);
+        cc.systemEvent.on("eventClickSave",this.onRandomItemsSave, this);
     },
 
     onTouchItemStart(){
-
+        cc.log('work')
     },
 
-    init(id){
+    onRandomItemsSave(){
+        let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
+        let activeItem = this.toggleActive.isChecked;
+        if(this._randomName === nameRandomItems.hurricane){
+            ranodomObject.hurricane.active = activeItem;
+        }
+        else if(this._randomName === nameRandomItems.storm  ){  
+            ranodomObject.storm.active = activeItem;
+        }
+        userData.gameAreaObject.ranodomItem= ranodomObject
+        cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
+    },
+
+
+    init(id,name){
         this.imgRandomItem.spriteFrame = this[`type_${id}`];
+        this._randomName = name;
+        this._randomId = id;
     },
 
     start () {

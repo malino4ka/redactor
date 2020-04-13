@@ -1,5 +1,6 @@
 import baseComponent from "../../helpers/baseComponent";
 
+
 cc.Class({
 
     extends: baseComponent,
@@ -8,14 +9,14 @@ cc.Class({
 
     /*======== Prefab ==========*/
 
-        packajeSelectItem : {
+        packageSelectItem : {
             default : null,
             type : cc.Prefab,
         },
 
     /*======== Select ==========*/   
 
-        packajeName : {
+        packageName : {
             default : null,
             type : cc.Label,
         },
@@ -23,7 +24,7 @@ cc.Class({
 
     /*======== Options ==========*/   
      
-        packajeOptions : {
+        packageOptions : {
             default : null,
             type : cc.Layout,
         },
@@ -40,38 +41,46 @@ cc.Class({
         _optValueStorage: {
             default : {},
         },
+        _packageId: {
+            default : null,
+        },
 
     },
 
 
     onLoad () {
-        let b = [1,2,3]
-        this.initPackaje(b);
+        // let b = [1,2,3]
+        // this.initPackage(b);
         this.node.on(cc.Node.EventType.TOUCH_START, this.onShowOptions, this);
-        cc.systemEvent.on("eventPackajeItem",this.onTouchPackajeItem, this);
+        cc.systemEvent.on("eventPackageItem",this.onTouchPackageItem, this);
         cc.systemEvent.on("eventClickSave",this.onEventClickSave, this);
 
-        cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE,this.initPackaje, this);
+        cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE,this.initPackage, this);
     },
 
-    initPackaje(arr){
-        for(let i = 0; i < arr.length; i++){
-            let item = cc.instantiate(this.packajeSelectItem);
-            item.getComponent('packajeOptItem').initPackaje(arr[i]);
-            this._optArray.push(item.getComponent('packajeOptItem'));
-            this.packajeOptions.node.addChild(item);
+    initPackage(event){
+        let a = event.getUserData();
+        let packageArray = a.response.packages
+        for(let i = 0; i < packageArray.length; i++){
+            let item = cc.instantiate(this.packageSelectItem);
+            item.getComponent('packageOptItem').initPackage(packageArray[i].name, packageArray[i].id);
+            this._optArray.push(item.getComponent('packageOptItem'));
+            this.packageOptions.node.addChild(item);
         }
     },
 
-    onTouchPackajeItem(e){
+    onTouchPackageItem(e){
         let value = e.getUserData().value;
-        this.packajeName.string = value;
-        this._optValueStorage['selectPackajeValue'] = value;
+        let id = e.getUserData().id;
+        this.packageName.string = value;
+        this._optValueStorage = value;
+        this._packageId = id;
+
     },
 
     onEventClickSave(e){
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
-        userData.pack = this._optValueStorage;
+        userData.settings.pack = {'name': this._optValueStorage, id: this._packageId};
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
     },
 
@@ -82,12 +91,12 @@ cc.Class({
             this._optArray[i].init(this._optionsFlag);
         }
         if(this._optionsFlag == true){
-            this.packajeOptions.node.opacity = 255;
+            this.packageOptions.node.opacity = 255;
             this._optionsFlag = false;
             return;
         }
         else if(this._optionsFlag == false){
-            this.packajeOptions.node.opacity = 0;
+            this.packageOptions.node.opacity = 0;
             this._optionsFlag = true;
             return;
         }

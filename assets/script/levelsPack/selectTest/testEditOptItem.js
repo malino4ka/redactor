@@ -4,20 +4,23 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-    	testItemValue : {
-            default : null,
-            type : cc.Label,
+
+        testEditOptName: {
+            default: null,
+            type: cc.Label,
         },
-        _testID: {
+
+        _testEditID: {
             default : null,
         },
     },
+
 
     onLoad () {
-        this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
+        this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchEditOptItem, this);
     },
 
-    init(flag){
+    initFlag(flag){
         if(flag){
             this.node.resumeSystemEvents();
         }
@@ -28,13 +31,13 @@ cc.Class({
 
     onTouchItemStart(e){
         let eventTestItem = new cc.Event.EventCustom('eventTestItem', true);
-        eventTestItem.setUserData({value : this.testItemValue.string, id: this._testID});
+        eventTestItem.setUserData({value : this.testEditOptName.string, id: this._testEditID});
         cc.systemEvent.dispatchEvent(eventTestItem);
     },
 
-    initTest(name,id){
-        this.testItemValue.string = name;
-        this._testID = id;
+    initEditTest(name,id){
+        this.testEditOptName.string = name;
+        this._testEditID = id;
     },
 
     start () {
