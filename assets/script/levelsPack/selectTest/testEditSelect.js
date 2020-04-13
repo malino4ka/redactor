@@ -30,17 +30,21 @@ cc.Class({
     },
 
     onLoad () {
+
     	cc.systemEvent.on(this._mapEvents.REDACTOR_GET_LEVELS_BY_PACKAGE_RESPONSE,this.initOptTestItem, this);
+
+        cc.systemEvent.on('eventTestItem',this.onChangeName, this);
 
         this.node.on(cc.Node.EventType.TOUCH_START, this.onShowOptions, this);
     },
 
-    initOptTestItem(event){
+    initOptTestItem(event){ 
         let a = event.getUserData();
         if(a.result && (a.status === 'OK')){
             cc.log(a.response)
         }
         let testArray = a.response.testVersions;
+        this.testEditName.string = testArray[0].name
         for(let i = 0; i < testArray.length; i++){
             let item = cc.instantiate(this.testEditOptItem);
             item.getComponent('testEditOptItem').initEditTest(testArray[i].name ,testArray[i].id);
@@ -48,6 +52,12 @@ cc.Class({
             this.testEditOpt.node.addChild(item);
             
         }
+    },
+
+    onChangeName(e){
+        let name = e.getUserData().name;
+        this.testEditName.string = name;
+        let id = e.getUserData().id;
     },
 
     onShowOptions(arg){

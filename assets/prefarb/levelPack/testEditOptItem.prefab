@@ -36,9 +36,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 247,
+      "g": 239,
+      "b": 47,
       "a": 255
     },
     "_contentSize": {
@@ -160,7 +160,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+      "__uuid__": "6846f9a8-73f0-43c6-8b2f-aafe16d07a4f"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -267,7 +267,7 @@
     "_useOriginalSize": false,
     "_string": "Label",
     "_N$string": "Label",
-    "_fontSize": 40,
+    "_fontSize": 30,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -305,6 +305,7 @@
     "testEditOptName": {
       "__id__": 6
     },
+    "_testEditID": null,
     "_id": ""
   },
   {

@@ -29,9 +29,9 @@ cc.Class({
         }
     },
 
-    onTouchItemStart(e){
+    onTouchEditOptItem(e){
         let eventTestItem = new cc.Event.EventCustom('eventTestItem', true);
-        eventTestItem.setUserData({value : this.testEditOptName.string, id: this._testEditID});
+        eventTestItem.setUserData({name : this.testEditOptName.string, id: this._testEditID});
         cc.systemEvent.dispatchEvent(eventTestItem);
     },
 

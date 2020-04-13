@@ -1290,8 +1290,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "Test",
-    "_N$string": "Test",
+    "_string": "label",
+    "_N$string": "label",
     "_fontSize": 30,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1676,8 +1676,8 @@
     "_N$paddingRight": 0,
     "_N$paddingTop": 0,
     "_N$paddingBottom": 0,
-    "_N$spacingX": 10,
-    "_N$spacingY": 10,
+    "_N$spacingX": 20,
+    "_N$spacingY": 20,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
@@ -1735,11 +1735,17 @@
       "__id__": 2
     },
     "_enabled": true,
+    "levelItem": {
+      "__uuid__": "caa8ce77-42fc-4c77-b7d7-2dd3bbdd2d72"
+    },
     "btnBack": {
       "__id__": 20
     },
     "createBtn": {
       "__id__": 13
+    },
+    "levelsBlockLayout": {
+      "__id__": 33
     },
     "_id": "e6sSAmfC5D4ovgFbQCkg+b"
   }

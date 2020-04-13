@@ -5,6 +5,11 @@ cc.Class({
 
     properties: {
 
+        levelItem:{
+            default: null,
+            type: cc.Prefab,
+        },
+
         btnBack: {
             default: null,
             type: cc.Button,
@@ -15,6 +20,10 @@ cc.Class({
             type: cc.Button,
         },
 
+        levelsBlockLayout: {
+            default: null,
+            type: cc.Layout,
+        },
     },
 
 
@@ -29,7 +38,6 @@ cc.Class({
     },
 
     initLevelRequest(event){
-        cc.log('initLevelRequest')
         let id = event.getUserData().id;
         let name = event.getUserData().name;
         let attemptConnection = {type: this._mapEvents.REDACTOR_GET_LEVELS_BY_PACKAGE_REQUEST , data: {testId: 1, packageId: id}};
@@ -38,10 +46,14 @@ cc.Class({
 
     onInitLevelItemsResponse(event){
         let a = event.getUserData();
+        let levlelItems =  a.response.levels;
         if(a.result && (a.status === 'OK')){
-            
+            for(index in levlelItems){
+                let item = cc.instantiate(this.levelItem);
+                item.getComponent('levelPackItem').initLevelItem(levlelItems[index].levelNumber, levlelItems[index].packageId, levlelItems[index].testVersionNumber);
+                this.levelsBlockLayout.node.addChild(item);
+            }
         }
-        cc.log(a)
     },
 
     onBack(){
