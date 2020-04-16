@@ -2,10 +2,10 @@ import nameRandomItems from "./helpers/mapRandomItems";
 
 // let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
 
-let ranodomObject = {
-        hurricane:{active : false},
-        storm:{active : false},
-}
+// let randomItems = [
+//         {hurricane:{active : false}},
+//         {storm:{active : false}},
+// ]
 
 cc.Class({
     extends: cc.Component,
@@ -51,13 +51,14 @@ cc.Class({
     onRandomItemsSave(){
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
         let activeItem = this.toggleActive.isChecked;
-        if(this._randomName === nameRandomItems.hurricane){
-            ranodomObject.hurricane.active = activeItem;
+        if(typeof userData.levelInfo.items.randomItems === 'undefined'){
+            userData.levelInfo.items.randomItems = [
+                // {hurricane:{active : false}},
+                // {storm:{active : false}},
+            ]
         }
-        else if(this._randomName === nameRandomItems.storm  ){  
-            ranodomObject.storm.active = activeItem;
-        }
-        userData.gameAreaObject.ranodomItem= ranodomObject
+        userData.levelInfo.items.randomItems.push({[this._randomName]:{active : activeItem}});
+        cc.log(userData);
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
     },
 

@@ -9,8 +9,9 @@ class Socket {
     }
 
     static init(token) {
-        // let a = '0ea3ef57';
-        url = `ws://ws-dev.sagaofpirates.games:8011`;
+        let a = 'b6a7f3ad';
+        url = `ws://${a}.ngrok.io`;
+        // url = `ws://ws-dev.sagaofpirates.games:8011`;
         Socket.getInstance();
     }
 

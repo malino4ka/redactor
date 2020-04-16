@@ -18,16 +18,9 @@ cc.Class({
     },
 
     onLoad () {
-        this._socket.init();
-        this.scheduleOnce(this.initPacksRequest, 1)
+        this.initPacksRequest();
         cc.systemEvent.on(this._mapEvents.REDACTOR_GET_PACKAGES_RESPONSE,this.onInitPackItemsResponse, this);
-        // cc.systemEvent.on("togglePacks",this.onChooseLevels, this);
     },
-
-    // onChooseLevels(e){
-    //     cc.log('work');
-    //     cc.log(e)
-    // },
 
     initPacksRequest(event){
         let attemptConnection = {type: this._mapEvents.REDACTOR_GET_PACKAGES_REQUEST , data: {message: 'packItems'}};
@@ -44,9 +37,9 @@ cc.Class({
     },
 
     initHomePack(arrayPack){
-        for(index in arrayPack){
+        for(let index in arrayPack){
             let item = cc.instantiate(this.packItem);
-            item.getComponent('packItem').initPack(index, arrayPack[index]);
+            item.getComponent('packItem').initPack(arrayPack[index].id, arrayPack[index].name);
             this.packLayout.node.addChild(item);
         }
     },

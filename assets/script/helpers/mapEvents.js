@@ -7,4 +7,7 @@ module.exports = {
     REDACTOR_GET_PACKAGES_RESPONSE : "RedactorGetPackagesResponse",
     REDACTOR_GET_LEVELS_BY_PACKAGE_REQUEST : "RedactorGetLevelsByPackageRequest",
     REDACTOR_GET_LEVELS_BY_PACKAGE_RESPONSE : "RedactorGetLevelsByPackageResponse",
+    CONNECTION_ACCEPTED: "ConnectionAccepted",
+    REDACTOR_FIND_LEVEL_REQUEST : "RedactorFindLevelRequest",
+    REDACTOR_FIND_LEVEL_RESPONSE : "RedactorFindLevelResponse",
 }

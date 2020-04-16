@@ -1,7 +1,7 @@
-
+import baseComponent from "../../helpers/baseComponent";
 
 cc.Class({
-    extends: cc.Component,
+    extends: baseComponent,
 
     properties: {
 
@@ -44,7 +44,7 @@ cc.Class({
 
 
     onLoad () {
-        this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this)
+        this.node.on(cc.Node.EventType.TOUCH_START, this.onSceneLaunched, this)
     },
 
     initPack(id, name){
@@ -53,14 +53,10 @@ cc.Class({
         this._packId = id;
     },
 
-    onTouchItemStart(){
-        cc.director.loadScene("levelsPack",this.onSceneLaunched);
-    },
-
     onSceneLaunched(){
-        let togglePacks = new cc.Event.EventCustom('togglePacks', true);
-        togglePacks.setUserData({id : this._packId ,name : this.packName});
-        cc.systemEvent.dispatchEvent(togglePacks);
+        this._globalVariable.setPackageName(this.packName);
+        this._globalVariable.setPackageId(this._packId);
+        cc.director.loadScene("levelsPack");
     },
 
     start () {

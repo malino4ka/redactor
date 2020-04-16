@@ -76,7 +76,7 @@ cc.Class({
 
     onEventClickSave(e){
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
-        userData.settings.tutorial = {name: this._optValueStorage, id: this._tutorialId};
+        userData.levelInfo.settings.tutorialId = this._tutorialId
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
     },
 

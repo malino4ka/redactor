@@ -105,6 +105,11 @@ cc.Class({
 
         },
 
+        btnBackRedactor:{
+            default: null,
+            type: cc.Button,
+        },
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -119,6 +124,7 @@ cc.Class({
 
         this.scrollRandomArrow.node.on('click',this.onTweenPanelLeft,this);
         this.arrowTopPanel.node.on('click',this.onTweenPanelTop,this);
+        this.btnBackRedactor.node.on('click',this.onBackToPack,this);
 
         cc.systemEvent.on("TouchCustomizeItem",this.onTouchCustomizeItem, this);
         cc.systemEvent.on("TouchAssetsItem",this.onTouchAssetsItem, this);
@@ -140,6 +146,7 @@ cc.Class({
     onUserDataSave(){
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
         this._dataUser = userData;
+        cc.log(userData)
         let attemptConnection = {type: this._mapEvents.REDACTOR_SAVE_ROUND_REQUEST, data: this._dataUser};
         this._socket.send(attemptConnection);
     },
@@ -238,6 +245,10 @@ cc.Class({
             this.layoutCustomizeItem.node.addChild(item);
         }
     },
+
+    onBackToPack(){
+        cc.director.loadScene("levelsPack");
+    }
 
     // update (dt) {},
 });

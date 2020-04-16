@@ -80,7 +80,7 @@ cc.Class({
 
     onEventClickSave(e){
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
-        userData.settings.pack = {'name': this._optValueStorage, id: this._packageId};
+        userData.levelInfo.settings.packageId = this._packageId;
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
     },
 

@@ -1,11 +1,3 @@
-// let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
-
-let editOptions = {
-    stars:{},
-    hearts:{},
-    timeRound:'',
-    level:'',
-}
 
 cc.Class({
     extends: cc.Component,
@@ -64,19 +56,25 @@ cc.Class({
     onEventClickSave(e){
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
 
-        editOptions.stars[1] = this.stars_1.string;
-        editOptions.stars[2] = this.stars_2.string;
-        editOptions.stars[3] = this.stars_3.string;
+        if(typeof userData.levelInfo.settings === 'undefined'){
+            userData.levelInfo.settings = {
+                stars:{},
+                life:{},
+                timeRound:null,
+                levelNumber:null,
+            };
+        }
+        userData.levelInfo.settings.stars[1] = this.stars_1.string;
+        userData.levelInfo.settings.stars[2] = this.stars_2.string;
+        userData.levelInfo.settings.stars[3] = this.stars_3.string;
 
-        editOptions.hearts[1] = this.hearts_1.string;
-        editOptions.hearts[2] = this.hearts_2.string;
-        editOptions.hearts[3] = this.hearts_3.string;
+        userData.levelInfo.settings.life[1] = this.hearts_1.string;
+        userData.levelInfo.settings.life[2] = this.hearts_2.string;
+        userData.levelInfo.settings.life[3] = this.hearts_3.string;
 
 
-        editOptions.timeRound = this.timeLevel.string;
-        editOptions.level = this.chooseLevel.string;
-
-        userData.settings = editOptions;
+        userData.levelInfo.settings.timeRound = this.timeLevel.string;
+        userData.levelInfo.settings.levelNumber  = this.chooseLevel.string;
 
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
     },

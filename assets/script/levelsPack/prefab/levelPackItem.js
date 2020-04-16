@@ -22,6 +22,9 @@ cc.Class({
         _testVersionNumber:{
             default: null,
         },
+        // _levelNumber:{
+        //     default: null,
+        // },
 
     },
 
@@ -29,16 +32,26 @@ cc.Class({
 
     onLoad (){
         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchLevel, this);
+        cc.systemEvent.on(this._mapEvents.REDACTOR_FIND_LEVEL_RESPONSE,this.onResponse, this);
     },
 
     initLevelItem(levelNumber,packageId,testVersionNumber){
         this.levelName.string = levelNumber;
         this._packageId = packageId;
         this._testVersionNumber = testVersionNumber;
+        this._levelNumber = levelNumber;
+        cc.log(this._levelNumber);
     },
 
     onTouchLevel(){
-        cc.log('work')
+        let attemptConnection = {type: this._mapEvents.REDACTOR_FIND_LEVEL_REQUEST, data: {packageId: this._packageId, levelNumber: this._levelNumber, testVersionNumber: this._testVersionNumber}};
+        this._socket.send(attemptConnection);
+        cc.log(attemptConnection)
+    },
+
+    onResponse(event){
+        let a = event.getUserData();
+        cc.log(a);
     },
 
     start () {

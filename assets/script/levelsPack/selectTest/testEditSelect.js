@@ -15,7 +15,7 @@ cc.Class({
     		type: cc.Label,
     	},
 
-    	testEditOpt:{
+    	testEditOptLayout:{
     		default: null,
     		type: cc.Layout,
     	},
@@ -26,6 +26,10 @@ cc.Class({
 
     	_optionsFlag: {
             default: true,
+        },
+
+        _selectName:{
+            default: "A",
         },
     },
 
@@ -39,38 +43,41 @@ cc.Class({
     },
 
     initOptTestItem(event){ 
+        cc.log('work')
         let a = event.getUserData();
         if(a.result && (a.status === 'OK')){
-            cc.log(a.response)
-        }
-        let testArray = a.response.testVersions;
-        this.testEditName.string = testArray[0].name
-        for(let i = 0; i < testArray.length; i++){
-            let item = cc.instantiate(this.testEditOptItem);
-            item.getComponent('testEditOptItem').initEditTest(testArray[i].name ,testArray[i].id);
-            this._optEditArray.push(item.getComponent('testEditOptItem'));
-            this.testEditOpt.node.addChild(item);
-            
+            cc.log(this.node.children)
+            let testArray = a.response.testVersions;
+            this.testEditName.string = this._selectName;
+
+            this.testEditOptLayout.node.removeAllChildren();
+            for(let i = 0; i < testArray.length; i++){
+                let item = cc.instantiate(this.testEditOptItem);
+                item.getComponent('testEditOptItem').initEditTest(testArray[i].name ,testArray[i].id);
+                this._optEditArray.push(item.getComponent('testEditOptItem'));
+                this.testEditOptLayout.node.addChild(item);
+            }
         }
     },
 
     onChangeName(e){
         let name = e.getUserData().name;
-        this.testEditName.string = name;
+        this._selectName = name;
         let id = e.getUserData().id;
     },
 
     onShowOptions(arg){
+        cc.log('work')
         for(let i in this._optEditArray){
             this._optEditArray[i].initFlag(this._optionsFlag);
         }
         if(this._optionsFlag == true){
-            this.testEditOpt.node.opacity = 255;
+            this.testEditOptLayout.node.opacity = 255;
             this._optionsFlag = false;
             return;
         }
         else if(this._optionsFlag == false){
-            this.testEditOpt.node.opacity = 0;
+            this.testEditOptLayout.node.opacity = 0;
             this._optionsFlag = true;
             return;
         }

@@ -77,7 +77,8 @@ cc.Class({
 
     onEventClickSave(e){
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
-        userData.settings.test = {name: this._optValueStorage, id: this._testId};;
+        cc.log(userData)
+        userData.levelInfo.settings.testVersionNumber  = this._testId;
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
     },
 

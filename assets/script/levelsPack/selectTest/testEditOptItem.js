@@ -1,7 +1,7 @@
-
+import baseComponent from "../../helpers/baseComponent";
 
 cc.Class({
-    extends: cc.Component,
+    extends: baseComponent,
 
     properties: {
 
@@ -13,10 +13,16 @@ cc.Class({
         _testEditID: {
             default : null,
         },
+
+        _testPackageId: {
+            default : null,
+        },
     },
 
 
     onLoad () {
+        // this._testPackageId = this._globalVariable.getPackageId();
+
         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchEditOptItem, this);
     },
 
