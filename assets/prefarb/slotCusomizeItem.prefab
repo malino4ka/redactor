@@ -225,34 +225,35 @@
       "__id__": 1
     },
     "_enabled": true,
-    "type_1": {
+    "rock": {
       "__uuid__": "4dfc0c43-59db-43c4-89e7-b652b6d6fe2d"
     },
-    "type_2": {
+    "transporterShip": {
       "__uuid__": "1ebe4ff9-2bcd-4a1e-8dcc-a7f051f68a6f"
     },
-    "type_7": {
+    "waterMill": {
       "__uuid__": "f0140927-1036-4022-b4a0-57714e7fbe32"
     },
-    "type_8": {
+    "woodFence": {
       "__uuid__": "02d09433-841c-461b-b862-1389ea4ce8ea"
     },
-    "type_9": {
+    "magicTriangle": {
       "__uuid__": "07278e71-1f14-46bd-be38-399c5e4990e9"
     },
-    "type_10": {
+    "tideIsland": {
       "__uuid__": "7e2a963b-517d-4394-b056-27e09041fc70"
     },
-    "type_12": {
+    "cargoShipsProcession": {
       "__uuid__": "a63ef926-e152-466e-ae0e-ac62f60bb38f"
     },
-    "type_13": {
+    "fortSingle": {
       "__uuid__": "cfba4870-9cbc-431e-b25b-a77709d27dcd"
     },
     "imgAssetsItem": {
       "__id__": 3
     },
-    "_userId": null,
+    "_customizeId": null,
+    "_customizeName": null,
     "_id": ""
   },
   {

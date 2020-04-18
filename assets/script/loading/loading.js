@@ -7,19 +7,20 @@ cc.Class({
     properties: {
     },
 
-    onLoad () {
+    onLoad() {
         this._socket.init();
-        cc.systemEvent.on(this._mapEvents.CONNECTION_ACCEPTED,this.onConnectionAccepted, this);
+        cc.systemEvent.on(this._mapEvents.CONNECTION_ACCEPTED, this.onConnectionAccepted, this);
     },
 
-    onConnectionAccepted(event){
+    onConnectionAccepted(event) {
         let a = event.getUserData();
-        if(a.result && (a.status === 'OK')){
+        if (a.result && (a.status === 'OK')) {
             cc.director.loadScene("choosePack");
         }
+        cc.log(a)
     },
 
-    start () {
+    start() {
 
     },
 

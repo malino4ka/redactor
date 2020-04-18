@@ -1,4 +1,4 @@
-import baseComponent from "./helpers/baseComponent";
+import baseComponent from "../helpers/baseComponent";
 
 
 cc.Class({
@@ -116,6 +116,9 @@ cc.Class({
 
     onLoad() {
 
+        let homeEditLoad = new cc.Event.EventCustom('homeEditLoad', true);
+        cc.systemEvent.dispatchEvent(homeEditLoad);
+
         cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE, this.onInitGameItemsResponse, this);
         this.scheduleOnce(this.initGameItemsRequest, 1)
 
@@ -132,6 +135,8 @@ cc.Class({
 
         cc.sys.localStorage.setItem('userData', JSON.stringify({}));
 
+        // this.initEditData();
+        this.scheduleOnce(this.initEditData, 2)
     },
 
     start() {
@@ -167,7 +172,6 @@ cc.Class({
     onInitGameItemsResponse(event) {
         let a = event.getUserData();
         let ObstaclesCustomizeId = a.response.obstacles.customize;
-        cc.log(ObstaclesCustomizeId)
         let ObstaclesAssets = a.response.assets;
         let ObstaclesRandom = a.response.obstacles.random;
         if (a.result && (a.status === 'OK')) {
@@ -248,8 +252,50 @@ cc.Class({
     },
 
     onBackToPack() {
+        cc.sys.localStorage.setItem('editData', JSON.stringify({}));
         cc.director.loadScene("levelsPack");
-    }
+    },
+
+    /*===============================*/
+
+    initEditData() {
+        let editData = JSON.parse(cc.sys.localStorage.getItem('editData'));
+        let a = editData;
+        if (editData) {
+            this.editGameAreaItems(a);
+        }
+    },
+
+    editGameAreaItems(a) {
+        let items = a.items;
+        cc.log(items)
+        for (let key in items) {
+            if (key === "randomItems") {
+                let arrRandoms = items[key];
+                this.onRandomEditItems(arrRandoms);
+            }
+            else {
+                let arrGameAreaItems = items[key].arr;
+                for (let index in arrGameAreaItems) {
+                    let item = cc.instantiate(this.gameAreaItem);
+                    item.getComponent('gameAreaItem').initEditItems(key, arrGameAreaItems[index].x, arrGameAreaItems[index].x);
+                    this.gameArea.addChild(item);
+                }
+            }
+        }
+    },
+
+    onRandomEditItems(arrRandoms) {
+        for (let key in arrRandoms) {
+            let item = cc.instantiate(this.slotRandomItem);
+            item.getComponent('slotRandomItem').initEdit(arrRandoms[key]);
+        }
+    },
 
     // update (dt) {},
 });
+// , arr[index].x, arr[index].y
+
+// let item = cc.instantiate(this.gameAreaItem);
+//                 item.getComponent('gameAreaItem').initEditItems(key);
+//                 this.gameArea.addChild(item);

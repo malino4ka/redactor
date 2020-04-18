@@ -478,7 +478,9 @@
       "__id__": 5
     },
     "_enabled": true,
-    "_normalMaterial": null,
+    "_normalMaterial": {
+      "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+    },
     "_grayMaterial": null,
     "duration": 0.1,
     "zoomScale": 1.2,
@@ -565,10 +567,10 @@
       "__id__": 1
     },
     "_enabled": true,
-    "type_3": {
+    "hurricane": {
       "__uuid__": "f950c9b0-3b5f-44f2-abe5-9d898cbc7362"
     },
-    "type_11": {
+    "storm": {
       "__uuid__": "707a0ce9-0060-4363-9d01-4163733400e4"
     },
     "toggleActive": {

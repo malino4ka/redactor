@@ -5,59 +5,58 @@ cc.Class({
 
     properties: {
 
-        tutorialSelectItem : {
-            default : null,
-            type : cc.Prefab,
+        tutorialSelectItem: {
+            default: null,
+            type: cc.Prefab,
         },
 
-    /*======== Select ==========*/   
+        /*======== Select ==========*/
 
-        tutorialName : {
-            default : null,
-            type : cc.Label,
+        tutorialName: {
+            default: null,
+            type: cc.Label,
         },
 
 
-    /*======== Options ==========*/   
+        /*======== Options ==========*/
 
-        tutorialOptions : {
-            default : null,
-            type : cc.Layout,
+        tutorialOptions: {
+            default: null,
+            type: cc.Layout,
         },
-    
 
-    /*======== helpers =========*/
+
+        /*======== helpers =========*/
 
         _optionsFlag: {
             default: true,
         },
 
         _optArray: {
-            default : [],
+            default: [],
         },
         _optValueStorage: {
-            default : null,
+            default: null,
         },
         _tutorialId: {
-            default : null,
+            default: null,
         },
     },
 
 
 
-    onLoad () {
+    onLoad() {
         this.node.on(cc.Node.EventType.TOUCH_START, this.onShowOptions, this);
-        cc.systemEvent.on("eventTutorialItem",this.onTouchTutorialItem, this);
-        cc.systemEvent.on("eventClickSave",this.onEventClickSave, this);
+        cc.systemEvent.on("eventTutorialItem", this.onTouchTutorialItem, this);
+        cc.systemEvent.on("eventClickSave", this.onEventClickSave, this);
 
-        cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE,this.initTutorial, this);
+        cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE, this.initTutorial, this);
     },
 
-    initTutorial(event){
+    initTutorial(event) {
         let a = event.getUserData();
         let tutorialArray = a.response.tutorials;
-        cc.log(tutorialArray[1].name)
-        for(let i = 0; i < tutorialArray.length; i++){
+        for (let i = 0; i < tutorialArray.length; i++) {
             let item = cc.instantiate(this.tutorialSelectItem);
             item.getComponent('tutorialOptItem').initTutorial(tutorialArray[i].name, tutorialArray[i].id);
             this._optArray.push(item.getComponent('tutorialOptItem'));
@@ -65,7 +64,7 @@ cc.Class({
         }
     },
 
-    onTouchTutorialItem(e){
+    onTouchTutorialItem(e) {
         let value = e.getUserData().value;
         let id = e.getUserData().id;
         this.tutorialName.string = value;
@@ -74,7 +73,7 @@ cc.Class({
 
     },
 
-    onEventClickSave(e){
+    onEventClickSave(e) {
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
         userData.levelInfo.settings.tutorialId = this._tutorialId
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
@@ -82,23 +81,23 @@ cc.Class({
 
     /*==========================*/
 
-    onShowOptions(){
-        for(let i in this._optArray){
+    onShowOptions() {
+        for (let i in this._optArray) {
             this._optArray[i].init(this._optionsFlag);
         }
-        if(this._optionsFlag == true){
+        if (this._optionsFlag == true) {
             this.tutorialOptions.node.opacity = 255;
             this._optionsFlag = false;
             return;
         }
-        else if(this._optionsFlag == false){
+        else if (this._optionsFlag == false) {
             this.tutorialOptions.node.opacity = 0;
             this._optionsFlag = true;
             return;
         }
     },
 
-    start () {
+    start() {
 
     },
 

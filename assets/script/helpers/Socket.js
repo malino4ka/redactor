@@ -1,4 +1,5 @@
-// import EventsMap from './EventsMap';
+import mapError from './mapError';
+
 let instance = null;
 let url = '';
 
@@ -9,9 +10,9 @@ class Socket {
     }
 
     static init(token) {
-        let a = 'b6a7f3ad';
-        url = `ws://${a}.ngrok.io`;
-        // url = `ws://ws-dev.sagaofpirates.games:8011`;
+        // let a = 'b6a7f3ad';
+        // url = `ws://${a}.ngrok.io`;
+        url = `ws://ws-dev.sagaofpirates.games:8011`;
         Socket.getInstance();
     }
 
@@ -25,13 +26,13 @@ class Socket {
             cc.log(event);
             if (event.type === 'open') {
                 cc.log('SOCKET WAS OPENED');
-                let attemptConnection = {type: "AttemptConnection", data: {message: "Handshake"}};
+                let attemptConnection = { type: "AttemptConnection", data: { message: "Handshake" } };
                 Socket.send(attemptConnection);
             }
         };
 
         instance.onmessage = (event) => {
-            cc.log(event.data);
+            cc.log(event.data)
             let message = JSON.parse(event.data);
             if ((typeof message['type'] !== 'undefined') && (typeof message['data'] !== 'undefined')) {
                 let customEvent = new cc.Event.EventCustom(message.type, true);
@@ -43,14 +44,14 @@ class Socket {
         instance.onerror = (event) => {
             cc.log("ON ERROR");
             let customEvent = new cc.Event.EventCustom("SocketError", true);
-            customEvent.setUserData({code: 1002});
+            customEvent.setUserData({ code: 1002 });
             cc.systemEvent.dispatchEvent(customEvent);
         };
 
         instance.onclose = (event) => {
             cc.log('ON CLOSE');
             let customEvent = new cc.Event.EventCustom("SocketClose", true);
-            customEvent.setUserData({code: 1002});
+            customEvent.setUserData({ code: 1002 });
             cc.systemEvent.dispatchEvent(customEvent);
         };
     }

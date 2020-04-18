@@ -192,19 +192,20 @@
       "__id__": 1
     },
     "_enabled": true,
-    "type_4": {
+    "star": {
       "__uuid__": "1c7114c3-6590-43be-be5f-9439ca068197"
     },
-    "type_5": {
-      "__uuid__": "9829dcb8-dec3-4581-b565-7f1a50dbe91e"
-    },
-    "type_6": {
+    "gate": {
       "__uuid__": "81ff8c54-1737-4e77-943b-b2115fd8218f"
+    },
+    "key": {
+      "__uuid__": "9829dcb8-dec3-4581-b565-7f1a50dbe91e"
     },
     "imgAssetsItem": {
       "__id__": 3
     },
-    "_userId": null,
+    "_assetsId": null,
+    "_assetsName": null,
     "_id": ""
   },
   {

@@ -5,68 +5,68 @@ cc.Class({
 
     properties: {
 
-        type_1 : {
-            default : null,
-            type : cc.SpriteFrame,
+        rock: {
+            default: null,
+            type: cc.SpriteFrame,
         },
-        type_2 : {
-            default : null,
-            type : cc.SpriteFrame,
+        transporterShip: {
+            default: null,
+            type: cc.SpriteFrame,
         },
-        type_7 : {
-            default : null,
-            type : cc.SpriteFrame,
+        waterMill: {
+            default: null,
+            type: cc.SpriteFrame,
         },
-        type_8 : {
-            default : null,
-            type : cc.SpriteFrame,
+        woodFence: {
+            default: null,
+            type: cc.SpriteFrame,
         },
-        type_9 : {
-            default : null,
-            type : cc.SpriteFrame,
+        magicTriangle: {
+            default: null,
+            type: cc.SpriteFrame,
         },
-        type_10 : {
-            default : null,
-            type : cc.SpriteFrame,
+        tideIsland: {
+            default: null,
+            type: cc.SpriteFrame,
         },
-        type_12 : {
-            default : null,
-            type : cc.SpriteFrame,
+        cargoShipsProcession: {
+            default: null,
+            type: cc.SpriteFrame,
         },
-        type_13 : {
-            default : null,
-            type : cc.SpriteFrame,
+        fortSingle: {
+            default: null,
+            type: cc.SpriteFrame,
         },
-        imgAssetsItem : {
-            default : null,
-            type : cc.Sprite,
+        imgAssetsItem: {
+            default: null,
+            type: cc.Sprite,
         },
-        _customizeId : {
-            default : null,
+        _customizeId: {
+            default: null,
         },
-        _customizeName : {
-            default : null,
+        _customizeName: {
+            default: null,
         }
     },
 
 
-    onLoad () {
+    onLoad() {
         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
     },
 
-    onTouchItemStart(){
+    onTouchItemStart() {
         let cloneMechanic = new cc.Event.EventCustom('TouchCustomizeItem', true);
-        cloneMechanic.setUserData({id : this._customizeId ,name : this._customizeName});
+        cloneMechanic.setUserData({ id: this._customizeId, name: this._customizeName });
         cc.systemEvent.dispatchEvent(cloneMechanic);
     },
 
-    init(id,name){
-        this.imgAssetsItem.spriteFrame = this[`type_${id}`];
+    init(id, name) {
+        this.imgAssetsItem.spriteFrame = this[name];
         this._customizeId = id;
         this._customizeName = name;
     },
 
-    start (){
+    start() {
 
     },
 

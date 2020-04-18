@@ -7,61 +7,76 @@ cc.Class({
 
     properties: {
 
-    /*======== Prefab ==========*/
+        /*======== Prefab ==========*/
 
-        packageSelectItem : {
-            default : null,
-            type : cc.Prefab,
+        packageSelectItem: {
+            default: null,
+            type: cc.Prefab,
         },
 
-    /*======== Select ==========*/   
+        /*======== Select ==========*/
 
-        packageName : {
-            default : null,
-            type : cc.Label,
+        packageName: {
+            default: null,
+            type: cc.Label,
         },
 
 
-    /*======== Options ==========*/   
-     
-        packageOptions : {
-            default : null,
-            type : cc.Layout,
+        /*======== Options ==========*/
+
+        packageOptions: {
+            default: null,
+            type: cc.Layout,
         },
-    
-    /*======== helpers =========*/
+
+        /*======== helpers =========*/
 
         _optionsFlag: {
             default: true,
         },
 
         _optArray: {
-            default : [],
+            default: [],
         },
         _optValueStorage: {
-            default : {},
+            default: {},
         },
         _packageId: {
-            default : null,
+            default: null,
+        },
+
+        _packageName: {
+            default: null,
         },
 
     },
 
 
-    onLoad () {
-        // let b = [1,2,3]
-        // this.initPackage(b);
-        this.node.on(cc.Node.EventType.TOUCH_START, this.onShowOptions, this);
-        cc.systemEvent.on("eventPackageItem",this.onTouchPackageItem, this);
-        cc.systemEvent.on("eventClickSave",this.onEventClickSave, this);
+    onLoad() {
+        this._packageName = this._globalVariable.getPackageName();
+        this.onDisableSelectPacksge();
 
-        cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE,this.initPackage, this);
+        this.node.on(cc.Node.EventType.TOUCH_START, this.onShowOptions, this);
+        cc.systemEvent.on("eventPackageItem", this.onTouchPackageItem, this);
+        cc.systemEvent.on("eventClickSave", this.onEventClickSave, this);
+
+        cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE, this.initPackage, this);
+
     },
 
-    initPackage(event){
+    onDisableSelectPacksge() {
+        let editData = JSON.parse(cc.sys.localStorage.getItem('editData'));
+        if (editData.packageId) {
+            this.packageName.string = this._packageName;
+            this.packageOptions.node.active = false;
+            this._packageId = editData.packageId;
+        }
+    },
+
+    initPackage(event) {
         let a = event.getUserData();
         let packageArray = a.response.packages
-        for(let i = 0; i < packageArray.length; i++){
+        for (let i = 0; i < packageArray.length; i++) {
             let item = cc.instantiate(this.packageSelectItem);
             item.getComponent('packageOptItem').initPackage(packageArray[i].name, packageArray[i].id);
             this._optArray.push(item.getComponent('packageOptItem'));
@@ -69,7 +84,7 @@ cc.Class({
         }
     },
 
-    onTouchPackageItem(e){
+    onTouchPackageItem(e) {
         let value = e.getUserData().value;
         let id = e.getUserData().id;
         this.packageName.string = value;
@@ -78,7 +93,7 @@ cc.Class({
 
     },
 
-    onEventClickSave(e){
+    onEventClickSave(e) {
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
         userData.levelInfo.settings.packageId = this._packageId;
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
@@ -86,23 +101,23 @@ cc.Class({
 
     /*==========================*/
 
-    onShowOptions(){
-        for(let i in this._optArray){
+    onShowOptions() {
+        for (let i in this._optArray) {
             this._optArray[i].init(this._optionsFlag);
         }
-        if(this._optionsFlag == true){
+        if (this._optionsFlag == true) {
             this.packageOptions.node.opacity = 255;
             this._optionsFlag = false;
             return;
         }
-        else if(this._optionsFlag == false){
+        else if (this._optionsFlag == false) {
             this.packageOptions.node.opacity = 0;
             this._optionsFlag = true;
             return;
         }
     },
 
-    start () {
+    start() {
 
     },
 

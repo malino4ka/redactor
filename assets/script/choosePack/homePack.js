@@ -5,46 +5,47 @@ cc.Class({
 
     properties: {
 
-        packItem:{
+        packItem: {
             default: null,
             type: cc.Prefab,
         },
 
-        packLayout:{
+        packLayout: {
             default: null,
             type: cc.Layout,
         },
 
     },
 
-    onLoad () {
+    onLoad() {
         this.initPacksRequest();
-        cc.systemEvent.on(this._mapEvents.REDACTOR_GET_PACKAGES_RESPONSE,this.onInitPackItemsResponse, this);
+        cc.systemEvent.on(this._mapEvents.REDACTOR_GET_PACKAGES_RESPONSE, this.onInitPackItemsResponse, this);
+        cc.sys.localStorage.setItem('editData', JSON.stringify({}));
     },
 
-    initPacksRequest(event){
-        let attemptConnection = {type: this._mapEvents.REDACTOR_GET_PACKAGES_REQUEST , data: {message: 'packItems'}};
+    initPacksRequest(event) {
+        let attemptConnection = { type: this._mapEvents.REDACTOR_GET_PACKAGES_REQUEST, data: { message: 'packItems' } };
         this._socket.send(attemptConnection);
     },
 
-    onInitPackItemsResponse(event){
+    onInitPackItemsResponse(event) {
         let a = event.getUserData();
         let arrayPack = a.response.packages;
-        cc.log(arrayPack);
-        if(a.result && (a.status === 'OK')){
+        if (a.result && (a.status === 'OK')) {
             this.initHomePack(arrayPack);
         }
+        cc.log(a)
     },
 
-    initHomePack(arrayPack){
-        for(let index in arrayPack){
+    initHomePack(arrayPack) {
+        for (let index in arrayPack) {
             let item = cc.instantiate(this.packItem);
             item.getComponent('packItem').initPack(arrayPack[index].id, arrayPack[index].name);
             this.packLayout.node.addChild(item);
         }
     },
 
-    start () {
+    start() {
 
     },
 

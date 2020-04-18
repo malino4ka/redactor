@@ -4,119 +4,119 @@ cc.Class({
 
     properties: {
 
-        type_1 : {
-            default : null,
-            type : cc.SpriteFrame,
+        rock: {
+            default: null,
+            type: cc.SpriteFrame,
         },
-        type_2 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-
-         type_4 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-        type_5 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-        type_6 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-        
-        type_7 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-        type_8 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-        type_9 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-        type_10 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-        type_12 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-        type_13 : {
-            default : null,
-            type : cc.SpriteFrame,
-        },
-        img : {
-            default : null,
-            type : cc.Sprite,
-        },
-        closeBtn : {
-            default : null,
-            type : cc.Button,
+        transporterShip: {
+            default: null,
+            type: cc.SpriteFrame,
         },
 
-        toggleItem : {
-            default : null,
-            type : cc.Toggle,
+        star: {
+            default: null,
+            type: cc.SpriteFrame,
+        },
+        gate: {
+            default: null,
+            type: cc.SpriteFrame,
+        },
+        key: {
+            default: null,
+            type: cc.SpriteFrame,
+        },
+
+        waterMill: {
+            default: null,
+            type: cc.SpriteFrame,
+        },
+        woodFence: {
+            default: null,
+            type: cc.SpriteFrame,
+        },
+        magicTriangle: {
+            default: null,
+            type: cc.SpriteFrame,
+        },
+        tideIsland: {
+            default: null,
+            type: cc.SpriteFrame,
+        },
+        cargoShipsProcession: {
+            default: null,
+            type: cc.SpriteFrame,
+        },
+        fortSingle: {
+            default: null,
+            type: cc.SpriteFrame,
+        },
+        img: {
+            default: null,
+            type: cc.Sprite,
+        },
+        closeBtn: {
+            default: null,
+            type: cc.Button,
+        },
+
+        toggleItem: {
+            default: null,
+            type: cc.Toggle,
         },
 
         /*======================*/
 
-        Delta:{
-            default : 10,
-        }, 
-        _maxPosX :{
-            default : null,
+        Delta: {
+            default: 10,
         },
-        _minPosX : {
-            default : null,
+        _maxPosX: {
+            default: null,
         },
-        _maxPosY :{
-            default : null,
+        _minPosX: {
+            default: null,
         },
-        _minPosY :{
-            default : null,
+        _maxPosY: {
+            default: null,
         },
-        _moving : {
-            default : false,
+        _minPosY: {
+            default: null,
         },
-        _x : {
-            default : false,
+        _moving: {
+            default: false,
         },
-        _y : {
-            default : false,
+        _x: {
+            default: false,
         },
-        stepRotation : {
-            default : 10,
+        _y: {
+            default: false,
+        },
+        stepRotation: {
+            default: 10,
         },
         _itemName: {
-            default : null,
+            default: null,
         },
 
     },
 
-    onLoad () {
+    onLoad() {
 
-        this._maxPosX = this.node.parent.width/2 - this.node.width/2;
-        this._minPosX = -this.node.parent.width/2 + this.node.width/2;
-        this._maxPosY = this.node.parent.height/2 - this.node.height/2;
-        this._minPosY = -this.node.parent.height/2 + this.node.height/2;
+        this._maxPosX = this.node.parent.width / 2 - this.node.width / 2;
+        this._minPosX = -this.node.parent.width / 2 + this.node.width / 2;
+        this._maxPosY = this.node.parent.height / 2 - this.node.height / 2;
+        this._minPosY = -this.node.parent.height / 2 + this.node.height / 2;
 
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onToggleItem,this);
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUpMoveItem,this);
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onToggleItem, this);
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUpMoveItem, this);
 
         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this)
         this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchItemEnd, this);
         this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.onTouchItemCancel, this);
         this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchItemMove, this);
-        this.closeBtn.node.on('click',this.closeItemClick,this);
+        this.closeBtn.node.on('click', this.closeItemClick, this);
     },
 
-    onDestroy () {
+    onDestroy() {
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDownMoveItem, this);
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUpMoveItem, this);
         this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
@@ -125,39 +125,45 @@ cc.Class({
         this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchItemMove, this);
     },
 
-    init(id,name,active){
-        this.img.spriteFrame = this[`type_${id}`];
+    init(name, active) {
+        this.img.spriteFrame = this[name];
         this.setItemName(name);
         this.setItemActive(active);
     },
 
-    setItemActive(active){
+    initEditItems(name, x, y) {
+        this.img.spriteFrame = this[name];
+        this.node.x = x;
+        this.node.y = y;
+    },
+
+    setItemActive(active) {
         return active;
     },
 
-    setItemName(name){
+    setItemName(name) {
         this._itemName = name;
     },
 
-    getItemName(){
+    getItemName() {
         return this._itemName;
     },
 
-    closeItemClick(){
+    closeItemClick() {
         this.node.destroy();
     },
 
-    setPositionItem(posX , posY){
+    setPositionItem(posX, posY) {
         let newPosX = posX;
         let newPosY = posY;
-        if(newPosX > this._maxPosX){
+        if (newPosX > this._maxPosX) {
             newPosX = this._maxPosX;
-        }else if(newPosX < this._minPosX){
+        } else if (newPosX < this._minPosX) {
             newPosX = this._minPosX;
-        }    
-        else if(newPosY > this._maxPosY){
+        }
+        else if (newPosY > this._maxPosY) {
             newPosY = this._maxPosY;
-        }else if(newPosY < this._minPosY){
+        } else if (newPosY < this._minPosY) {
             newPosY = this._minPosY;
         }
         this.node.x = newPosX;
@@ -167,34 +173,34 @@ cc.Class({
 
     /*======= key ===========*/
 
-    onToggleItem(e){
+    onToggleItem(e) {
         let e_keyCode = e.keyCode
-       if(!this.toggleItem.isChecked){
+        if (!this.toggleItem.isChecked) {
             return;
         }
-            this.onKeyDownMoveItem(e_keyCode);
+        this.onKeyDownMoveItem(e_keyCode);
     },
 
-    onKeyDownMoveItem(keyCode){
+    onKeyDownMoveItem(keyCode) {
 
-            if(keyCode == cc.macro.KEY.left){
-                this._x = this.node.x + this.Delta * (-1);
-            }
-            else if(keyCode == cc.macro.KEY.down){
-                this._y = this.node.y + this.Delta * (-1);
-            }
-            else if(keyCode == cc.macro.KEY.right){
-                this._x = this.node.x + this.Delta;
-            }
-            else if(keyCode == cc.macro.KEY.up){
-                this._y = this.node.y + this.Delta;
-            }
-            else if(keyCode == cc.macro.KEY.l){
-                this.node.rotation += this.stepRotation;
-            }
-            else if(keyCode == cc.macro.KEY.r){
-                this.node.rotation += -this.stepRotation;
-            }
+        if (keyCode == cc.macro.KEY.left) {
+            this._x = this.node.x + this.Delta * (-1);
+        }
+        else if (keyCode == cc.macro.KEY.down) {
+            this._y = this.node.y + this.Delta * (-1);
+        }
+        else if (keyCode == cc.macro.KEY.right) {
+            this._x = this.node.x + this.Delta;
+        }
+        else if (keyCode == cc.macro.KEY.up) {
+            this._y = this.node.y + this.Delta;
+        }
+        else if (keyCode == cc.macro.KEY.l) {
+            this.node.rotation += this.stepRotation;
+        }
+        else if (keyCode == cc.macro.KEY.r) {
+            this.node.rotation += -this.stepRotation;
+        }
         this.setPositionItem(this._x, this._y);
         // this.updateByKeys();
     },
@@ -208,24 +214,24 @@ cc.Class({
 
     /*======= Touch ===========*/
 
-    onTouchItemStart(e){
+    onTouchItemStart(e) {
         this._moving = true;
         this._x = this.node.x;
         this._y = this.node.y;
     },
 
-    onTouchItemEnd(e){
+    onTouchItemEnd(e) {
         this._moving = false;
     },
 
-    onTouchItemCancel(e){
+    onTouchItemCancel(e) {
         this._moving = false;
     },
 
-    onTouchItemMove(e){
-        if(!this._moving){
+    onTouchItemMove(e) {
+        if (!this._moving) {
             return;
-        }else{
+        } else {
             this._x += e.getDelta().x;
             this._y += e.getDelta().y;
         }
@@ -234,37 +240,23 @@ cc.Class({
     /*==================*/
 
 
-    updateByTouch(){
+    updateByTouch() {
         this.setPositionItem(this._x, this._y);
     },
 
-    // updateByKeys(){
-    //     let posX = this.node.x;
-    //     let posY = this.node.y;
-    //     if(this._side == 0){
-    //         return;
-    //     }    
-    //     else if(this._eKey == cc.macro.KEY.left || this._eKey == cc.macro.KEY.right){
-    //         posX = this.node.x + this.Delta * this._side;
-    //     }
-    //     else if(this._eKey == cc.macro.KEY.up || this._eKey == cc.macro.KEY.down){
-    //         posY = this.node.y + this.Delta * this._side; 
-    //     }    
-    //     this.setPositionItem(posX, posY);
-    // },
 
-    currentItem(){
+    currentItem() {
 
     },
 
 
-    start () {
+    start() {
 
     },
 
-    update (dt) {
+    update(dt) {
 
-        if(this._moving){
+        if (this._moving) {
             this.updateByTouch();
             return;
         }
