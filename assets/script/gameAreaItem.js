@@ -1,6 +1,8 @@
+import baseComponent from "./helpers/baseComponent";
+
 
 cc.Class({
-    extends: cc.Component,
+    extends: baseComponent,
 
     properties: {
 
@@ -90,10 +92,25 @@ cc.Class({
         _y: {
             default: false,
         },
-        stepRotation: {
+        _angle: {
+            default: null,
+        },
+        stepAngle: {
             default: 10,
         },
         _itemName: {
+            default: null,
+        },
+
+        _itemScore: {
+            default: null,
+        },
+
+        _itemHealth: {
+            default: null,
+        },
+
+        _itemAngle: {
             default: null,
         },
 
@@ -125,31 +142,61 @@ cc.Class({
         this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchItemMove, this);
     },
 
-    init(name, active) {
+    init(name, score, health) {
         this.img.spriteFrame = this[name];
         this.setItemName(name);
-        this.setItemActive(active);
+        this.setItemScore(score);
+        this.setItemHealth(health);
     },
 
-    initEditItems(name, x, y) {
+    initEditItems(name, x, y, angle = 0, score, health) {
         this.img.spriteFrame = this[name];
         this.node.x = x;
         this.node.y = y;
-    },
-
-    setItemActive(active) {
-        return active;
+        this.node.angle = angle;
+        this.setItemName(name);
+        this.setItemScore(score);
+        this.setItemHealth(health);
     },
 
     setItemName(name) {
         this._itemName = name;
     },
 
+    setItemScore(score) {
+        this._itemScore = score;
+    },
+
+    setItemHealth(health) {
+        this._itemHealth = health;
+    },
+
     getItemName() {
         return this._itemName;
     },
 
+    getItemScore() {
+        return this._itemScore;
+    },
+
+    getItemHealth() {
+        return this._itemHealth;
+    },
+
     closeItemClick() {
+        if (this._itemName === "key") {
+            this._globalVariable.setKeyCount(0);
+        }
+        if (this._itemName === "gate") {
+            this._globalVariable.setGateCount(0);
+        }
+        if (this._itemName === "star") {
+            this._globalVariable.setStarsCount(-1);
+            cc.log(this._globalVariable.getStarsCount())
+        }
+        let closeItem = new cc.Event.EventCustom('CloseItem', true);
+        closeItem.setUserData({ name: this._itemName });
+        cc.systemEvent.dispatchEvent(closeItem);
         this.node.destroy();
     },
 
@@ -168,7 +215,6 @@ cc.Class({
         }
         this.node.x = newPosX;
         this.node.y = newPosY;
-        // this.node.emit('moved',newPos);
     },
 
     /*======= key ===========*/
@@ -184,40 +230,34 @@ cc.Class({
     onKeyDownMoveItem(keyCode) {
 
         if (keyCode == cc.macro.KEY.left) {
-            this._x = this.node.x + this.Delta * (-1);
+            this.node.x = this.node.x + this.Delta * (-1);
         }
         else if (keyCode == cc.macro.KEY.down) {
-            this._y = this.node.y + this.Delta * (-1);
+            this.node.y = this.node.y + this.Delta * (-1);
         }
         else if (keyCode == cc.macro.KEY.right) {
-            this._x = this.node.x + this.Delta;
+            this.node.x = this.node.x + this.Delta;
         }
         else if (keyCode == cc.macro.KEY.up) {
-            this._y = this.node.y + this.Delta;
+            this.node.y = this.node.y + this.Delta;
         }
         else if (keyCode == cc.macro.KEY.l) {
-            this.node.rotation += this.stepRotation;
+            cc.log(this.node.angle)
+            this.node.angle = this.node.angle + this.stepAngle;
         }
         else if (keyCode == cc.macro.KEY.r) {
-            this.node.rotation += -this.stepRotation;
+            cc.log(this.node.angle)
+            this.node.angle = this.node.angle - this.stepAngle;
         }
-        this.setPositionItem(this._x, this._y);
-        // this.updateByKeys();
+        this.setPositionItem(this.node.x, this.node.y);
     },
 
-    // onKeyUpMoveItem(e){
-    //     if(e.keyCode == cc.macro.KEY.left || e.keyCode == cc.macro.KEY.right || e.keyCode == cc.macro.KEY.up || e.keyCode == cc.macro.KEY.down){
-    //         this._side = 0;
-    //     }  
-    // },
 
 
     /*======= Touch ===========*/
 
     onTouchItemStart(e) {
         this._moving = true;
-        this._x = this.node.x;
-        this._y = this.node.y;
     },
 
     onTouchItemEnd(e) {
@@ -232,21 +272,9 @@ cc.Class({
         if (!this._moving) {
             return;
         } else {
-            this._x += e.getDelta().x;
-            this._y += e.getDelta().y;
+            this.node.x += e.getDelta().x;
+            this.node.y += e.getDelta().y;
         }
-    },
-
-    /*==================*/
-
-
-    updateByTouch() {
-        this.setPositionItem(this._x, this._y);
-    },
-
-
-    currentItem() {
-
     },
 
 
@@ -256,11 +284,5 @@ cc.Class({
 
     update(dt) {
 
-        if (this._moving) {
-            this.updateByTouch();
-            return;
-        }
-
-        // this.updateByKeys();
     },
 });

@@ -49,11 +49,9 @@ cc.Class({
 
     onResponse(event) {
         let a = event.getUserData();
-        cc.log(a)
         if (a.result && (a.status === 'OK')) {
             cc.sys.localStorage.setItem('editData', JSON.stringify(a.response));
         }
-        cc.log(a);
         this.onChangeSctne();
     },
 

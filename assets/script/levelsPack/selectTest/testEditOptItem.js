@@ -11,42 +11,41 @@ cc.Class({
         },
 
         _testEditID: {
-            default : null,
+            default: null,
         },
 
         _testPackageId: {
-            default : null,
+            default: null,
         },
     },
 
 
-    onLoad () {
-        // this._testPackageId = this._globalVariable.getPackageId();
+    onLoad() {
 
         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchEditOptItem, this);
     },
 
-    initFlag(flag){
-        if(flag){
+    initFlag(flag) {
+        if (flag) {
             this.node.resumeSystemEvents();
         }
-        else{
+        else {
             this.node.pauseSystemEvents();
         }
     },
 
-    onTouchEditOptItem(e){
+    onTouchEditOptItem(e) {
         let eventTestItem = new cc.Event.EventCustom('eventTestItem', true);
-        eventTestItem.setUserData({name : this.testEditOptName.string, id: this._testEditID});
+        eventTestItem.setUserData({ name: this.testEditOptName.string, id: this._testEditID });
         cc.systemEvent.dispatchEvent(eventTestItem);
     },
 
-    initEditTest(name,id){
+    initEditTest(name, id) {
         this.testEditOptName.string = name;
         this._testEditID = id;
     },
 
-    start () {
+    start() {
 
     },
 

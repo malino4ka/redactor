@@ -67,13 +67,13 @@ cc.Class({
 
     onDisableSelectTest() {
         let editData = JSON.parse(cc.sys.localStorage.getItem('editData'));
-        cc.log(editData.testVersionNumber)
-        if (editData.testVersionNumber) {
-            let id = editData.testVersionNumber;
-
-            this.testName.string = this[`_test_${id}`];
-            this.testOptions.node.active = false;
-            this._testId = editData.testVersionNumber;
+        if (editData) {
+            if (editData.testVersionNumber) {
+                let id = editData.testVersionNumber;
+                this.testName.string = this[`_test_${id}`];
+                this.testOptions.node.active = false;
+                this._testId = editData.testVersionNumber;
+            }
         }
     },
 

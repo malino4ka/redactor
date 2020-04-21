@@ -66,9 +66,9 @@ cc.Class({
     },
 
     onInitLevelItemsResponse(event) {
+        this.levelsBlockLayout.node.removeAllChildren();
         let a = event.getUserData();
         let levlelItems = a.response.levels;
-        this.levelsBlockLayout.node.removeAllChildren();
         if (a.result && (a.status === 'OK')) {
             for (let index in levlelItems) {
                 let item = cc.instantiate(this.levelItem);

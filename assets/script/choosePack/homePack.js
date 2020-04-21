@@ -20,7 +20,7 @@ cc.Class({
     onLoad() {
         this.initPacksRequest();
         cc.systemEvent.on(this._mapEvents.REDACTOR_GET_PACKAGES_RESPONSE, this.onInitPackItemsResponse, this);
-        cc.sys.localStorage.setItem('editData', JSON.stringify({}));
+        // cc.sys.localStorage.setItem('editData', JSON.stringify({}));
     },
 
     initPacksRequest(event) {
@@ -34,7 +34,6 @@ cc.Class({
         if (a.result && (a.status === 'OK')) {
             this.initHomePack(arrayPack);
         }
-        cc.log(a)
     },
 
     initHomePack(arrayPack) {

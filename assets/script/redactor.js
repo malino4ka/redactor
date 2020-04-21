@@ -115,10 +115,8 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-
-        cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE, this.onInitGameItemsResponse, this);
         this.scheduleOnce(this.initGameItemsRequest, 1)
-
+        cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE, this.onInitGameItemsResponse, this);
         cc.systemEvent.on(this._mapEvents.REDACTOR_SAVE_ROUND_RESPONSE, this.onSaveRoundResponse, this);
 
         this.scrollRandomArrow.node.on('click', this.onTweenPanelLeft, this);
@@ -127,10 +125,7 @@ cc.Class({
 
         cc.systemEvent.on("TouchCustomizeItem", this.onTouchCustomizeItem, this);
         cc.systemEvent.on("TouchAssetsItem", this.onTouchAssetsItem, this);
-
-        cc.systemEvent.on("eventClickSave", this.onUserData, this);
-
-        cc.sys.localStorage.setItem('userData', JSON.stringify({}));
+        cc.systemEvent.on("eventClickSave", this.onSave, this);
 
     },
 
@@ -138,7 +133,7 @@ cc.Class({
 
     },
 
-    onUserData() {
+    onSave() {
         this.scheduleOnce(this.onUserDataSave, 1)
     },
 
@@ -148,7 +143,7 @@ cc.Class({
         cc.log(userData)
         let attemptConnection = { type: this._mapEvents.REDACTOR_SAVE_ROUND_REQUEST, data: this._dataUser };
         this._socket.send(attemptConnection);
-        cc.sys.localStorage.setItem('userData', JSON.stringify({}));
+        cc.sys.localStorage.removeItem('userData');
     },
 
     initGameItemsRequest(event) {
@@ -159,15 +154,14 @@ cc.Class({
     onSaveRoundResponse(event) {
         let a = event.getUserData();
         if (a.result && (a.status === 'OK')) {
-
+            cc.log(a)
         }
-        cc.log(a)
     },
 
     onInitGameItemsResponse(event) {
         let a = event.getUserData();
+        cc.log(a)
         let ObstaclesCustomizeId = a.response.obstacles.customize;
-        cc.log(ObstaclesCustomizeId)
         let ObstaclesAssets = a.response.assets;
         let ObstaclesRandom = a.response.obstacles.random;
         if (a.result && (a.status === 'OK')) {
@@ -180,16 +174,20 @@ cc.Class({
     onTouchCustomizeItem(e) {
         let id = e.getUserData().id;
         let name = e.getUserData().name;
+        let score = e.getUserData().score;
+        let health = e.getUserData().health;
         let gameAreaItemNode = cc.instantiate(this.gameAreaItem);
-        gameAreaItemNode.getComponent('gameAreaItem').init(name);
+        gameAreaItemNode.getComponent('gameAreaItem').init(name, score, health);
         this.gameArea.addChild(gameAreaItemNode);
     },
 
     onTouchAssetsItem(e) {
         let id = e.getUserData().id;
         let name = e.getUserData().name;
+        let score = e.getUserData().score;
+        let health = e.getUserData().health;
         let gameAreaItemNode = cc.instantiate(this.gameAreaItem);
-        gameAreaItemNode.getComponent('gameAreaItem').init(name);
+        gameAreaItemNode.getComponent('gameAreaItem').init(name, score, health);
         this.gameArea.addChild(gameAreaItemNode);
     },
 
@@ -234,7 +232,7 @@ cc.Class({
     initScrolAssetsItem(assets) {
         for (let i = 0; i < assets.length; i++) {
             let item = cc.instantiate(this.slotAssetsItem);
-            item.getComponent('slotAssetsItem').init(assets[i].id, assets[i].name);
+            item.getComponent('slotAssetsItem').init(assets[i].id, assets[i].name, assets[i].score, assets[i].health);
             this.layoutAssetsItem.node.addChild(item);
         }
     },
@@ -242,7 +240,7 @@ cc.Class({
     initScrollCustomizeItem(customize) {
         for (let i = 0; i < customize.length; i++) {
             let item = cc.instantiate(this.slotCustomizeItem);
-            item.getComponent('slotCustomizeItem').init(customize[i].id, customize[i].name);
+            item.getComponent('slotCustomizeItem').init(customize[i].id, customize[i].name, customize[i].score, customize[i].health);
             this.layoutCustomizeItem.node.addChild(item);
         }
     },

@@ -1,11 +1,4 @@
-import nameRandomItems from "./helpers/mapRandomItems";
 
-// let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
-
-// let randomItems = [
-//         {hurricane:{active : false}},
-//         {storm:{active : false}},
-// ]
 
 cc.Class({
     extends: cc.Component,
@@ -65,21 +58,12 @@ cc.Class({
         this.imgRandomItem.spriteFrame = this[name];
         this._randomName = name;
         this._randomId = id;
-        cc.log(this._randomName)
     },
 
     initEdit(name) {
-        cc.log(this._randomName)
         if (name === this._randomName) {
-            cc.log('=================')
-            cc.log('storm')
             this.toggleActive.isChecked = true;
         }
-        this.onononon();
-    },
-
-    onononon() {
-        cc.log(this._randomName)
     },
 
     start() {

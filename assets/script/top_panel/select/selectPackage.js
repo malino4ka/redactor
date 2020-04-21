@@ -66,10 +66,12 @@ cc.Class({
 
     onDisableSelectPacksge() {
         let editData = JSON.parse(cc.sys.localStorage.getItem('editData'));
-        if (editData.packageId) {
-            this.packageName.string = this._packageName;
-            this.packageOptions.node.active = false;
-            this._packageId = editData.packageId;
+        if (editData) {
+            if (editData.packageId) {
+                this.packageName.string = this._packageName;
+                this.packageOptions.node.active = false;
+                this._packageId = editData.packageId;
+            }
         }
     },
 

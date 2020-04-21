@@ -65,23 +65,34 @@ cc.Class({
 
 	onDisabledLevelNunber() {
 		let editData = JSON.parse(cc.sys.localStorage.getItem('editData'));
-		if (editData.levelNumber) {
-			this.chooseLevel.node.active = false;
-			this.labelDisabled.node.active = true;
-			this.labelDisabled.string = `Level  ${editData.levelNumber}`;
-			this._levelNumber = editData.levelNumber;
+		if (editData) {
+			if (editData.settings) {
+				this.stars_1.string = editData.settings.stars['1'];
+				this.stars_2.string = editData.settings.stars['2'];
+				this.stars_3.string = editData.settings.stars['3'];
+
+				this.hearts_1.string = editData.settings.life['1'];
+				this.hearts_2.string = editData.settings.life['2'];
+				this.hearts_3.string = editData.settings.life['3'];
+
+				this.timeLevel.string = editData.settings.timeRound;
+			}
+			if (editData.levelNumber) {
+				this.chooseLevel.node.active = false;
+				this.labelDisabled.node.active = true;
+				this._levelNumber = editData.levelNumber;
+				this.labelDisabled.string = `Level  ${editData.levelNumber}`;
+			}
 		}
 	},
 
 	onEventClickSave(e) {
-
-		if (this._levelNumber) {
-
-		} else {
-			cc.log('b')
+		if (this.labelDisabled.node.active) {
+			this._levelNumber = this._levelNumber;
+		}
+		else {
 			this._levelNumber = this.chooseLevel.string;
 		}
-
 		let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
 
 		if (typeof userData.levelInfo.settings === 'undefined') {

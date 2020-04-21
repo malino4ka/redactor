@@ -41,6 +41,21 @@ cc.Class({
         _tutorialId: {
             default: null,
         },
+        _chooseTutorialName: {
+            default: "Choose tutorial",
+        },
+        _chooseTutorialId: {
+            default: null,
+        },
+
+        _tutorialArrayResponse: {
+            default: null,
+        },
+        // _tutorialName: {
+        //     default: null,
+        // },
+
+
     },
 
 
@@ -53,14 +68,37 @@ cc.Class({
         cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE, this.initTutorial, this);
     },
 
+    tutorialeditName() {
+        let editData = JSON.parse(cc.sys.localStorage.getItem('editData'));
+        if (editData) {
+            if (editData.tutorialId) {
+                let arr = this._tutorialArrayResponse;
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].id === editData.tutorialId) {
+                        this._tutorialId = arr[i].id;
+                        this.tutorialName.string = arr[i].name;
+                    }
+                }
+            }
+        }
+    },
+
     initTutorial(event) {
         let a = event.getUserData();
-        let tutorialArray = a.response.tutorials;
-        for (let i = 0; i < tutorialArray.length; i++) {
+        if (a.result && (a.status === 'OK')) {
+            let tutorialArray = a.response.tutorials;
+            this._tutorialArrayResponse = tutorialArray;
             let item = cc.instantiate(this.tutorialSelectItem);
-            item.getComponent('tutorialOptItem').initTutorial(tutorialArray[i].name, tutorialArray[i].id);
+            item.getComponent('tutorialOptItem').initTutorial(this._chooseTutorialName, this._chooseTutorialId);
             this._optArray.push(item.getComponent('tutorialOptItem'));
             this.tutorialOptions.node.addChild(item);
+            for (let i = 0; i < tutorialArray.length; i++) {
+                let item = cc.instantiate(this.tutorialSelectItem);
+                item.getComponent('tutorialOptItem').initTutorial(tutorialArray[i].name, tutorialArray[i].id);
+                this._optArray.push(item.getComponent('tutorialOptItem'));
+                this.tutorialOptions.node.addChild(item);
+            }
+            this.tutorialeditName();
         }
     },
 
@@ -75,7 +113,7 @@ cc.Class({
 
     onEventClickSave(e) {
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
-        userData.levelInfo.settings.tutorialId = this._tutorialId
+        userData.levelInfo.settings.tutorialId = this._tutorialId;
         cc.sys.localStorage.setItem('userData', JSON.stringify(userData));
     },
 
