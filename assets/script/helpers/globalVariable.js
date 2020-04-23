@@ -23,14 +23,22 @@ module.exports = {
     setUserData: (b) => {
         cc.sys.localStorage.setItem('userData', JSON.stringify(b));
     },
-
-    getKeyCount: () => { return key },
     setKeyCount: (k) => { key = k },
+    getKeyCount: () => { return key },
+    addKeyCount: () => { key++ },
+    removeKeyCount: () => { key-- },
+    resetKeyCount: () => { key = 0 },
 
+    setGatesCount: (g) => { gate = g },
     getGateCount: () => { return gate },
-    setGateCount: (g) => { gate = g },
+    addGateCount: () => { gate++ },
+    removeGateCount: () => { gate-- },
+    resetGateCount: () => { gate = 0 },
 
+    setStarsCount: (s) => { star = s },
     getStarsCount: () => { return star },
-    setStarsCount: (s) => { star = star + s },
+    starsCountIncrement: () => { star++ },
+    starsCountDecrement: () => { star-- },
+    starsCountReset: () => { star = 0 },
 
 }

@@ -1,7 +1,4 @@
-// import nameGameAreaItem from "./helpers/mapGameAreiaItem";
-import baseComponent from "./helpers/baseComponent";
-
-
+import baseComponent from "../../helpers/baseComponent";
 
 cc.Class({
     extends: baseComponent,

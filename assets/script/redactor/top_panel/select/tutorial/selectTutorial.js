@@ -1,4 +1,4 @@
-import baseComponent from "../../helpers/baseComponent";
+import baseComponent from "../../../../helpers/baseComponent";
 
 cc.Class({
     extends: baseComponent,

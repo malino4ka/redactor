@@ -1,4 +1,4 @@
-import baseComponent from "./helpers/baseComponent";
+import baseComponent from "../../helpers/baseComponent";
 
 
 cc.Class({
@@ -35,12 +35,15 @@ cc.Class({
         _assetsHealth: {
             default: null,
         },
+        _a: {
+            default: null,
+        }
     },
 
 
     onLoad() {
+        // this._globalVariable.counrStars = 0;
         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
-        cc.systemEvent.on("CloseItem", this.oncloseItem, this);
     },
 
     init(id, name, score, health) {
@@ -52,38 +55,29 @@ cc.Class({
     },
 
     onTouchItemStart() {
-        cc.log(this._assetsName);
+
         if (this._assetsName === "key") {
-            if (this._globalVariable.getKeyCount() === 0) {
-                this.onCloneMechanic();
-                this._globalVariable.setKeyCount(1);
-                this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
+            if (this._globalVariable.getKeyCount() > 0) {
+                return false;
             }
-            else if (this._globalVariable.getKeyCount() === 1) {
-                this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
-            }
+            this.onCloneMechanic();
+            this._globalVariable.addKeyCount();
         }
 
         if (this._assetsName === "gate") {
-            if (this._globalVariable.getGateCount() === 0) {
-                this.onCloneMechanic();
-                this._globalVariable.setGateCount(1);
-                this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
+            if (this._globalVariable.getGateCount() > 0) {
+                return false;
             }
-            else if (this._globalVariable.getGateCount() === 1) {
-                this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
-            }
+            this.onCloneMechanic();
+            this._globalVariable.addGateCount();
         }
 
         if (this._assetsName === "star") {
-            cc.log(this._globalVariable.getStarsCount())
-            if (this._globalVariable.getStarsCount() < 3) {
-                this._globalVariable.setStarsCount(1);
-                this.onCloneMechanic();
+            if (this._globalVariable.getStarsCount() >= 3) {
+                return false;
             }
-            else if (this._globalVariable.getStarsCount() >= 3) {
-                this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
-            }
+            this.onCloneMechanic();
+            this._globalVariable.starsCountIncrement();
         }
     },
 
@@ -93,9 +87,7 @@ cc.Class({
         cc.systemEvent.dispatchEvent(cloneMechanic);
     },
 
-    oncloseItem() {
-        this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchItemStart, this);
-    },
+
     start() {
 
     },

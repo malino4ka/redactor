@@ -59,6 +59,7 @@ cc.Class({
 	},
 
 	onLoad() {
+		this.labelDisabled.node.active = false;
 		this.onDisabledLevelNunber();
 		cc.systemEvent.on("eventClickSave", this.onEventClickSave, this);
 	},
@@ -88,9 +89,11 @@ cc.Class({
 
 	onEventClickSave(e) {
 		if (this.labelDisabled.node.active) {
+			cc.log(this.labelDisabled.node.active)
 			this._levelNumber = this._levelNumber;
 		}
 		else {
+			cc.log(this.labelDisabled.node.active)
 			this._levelNumber = this.chooseLevel.string;
 		}
 		let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));

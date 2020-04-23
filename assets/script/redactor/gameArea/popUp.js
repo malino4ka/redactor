@@ -1,4 +1,4 @@
-import baseComponent from "../helpers/baseComponent";
+import baseComponent from "../../helpers/baseComponent";
 
 
 cc.Class({
@@ -9,16 +9,9 @@ cc.Class({
     },
 
     onLoad() {
-        // cc.systemEvent.on("eventClickSave", this.onPopUp, this);
         cc.systemEvent.on('ErrorResponse', this.onSaveResponse, this);
 
     },
-
-    // onPopUp() {
-    //     cc.log('work')
-    //     this.node.opacity = 255;
-    //     this.scheduleOnce(this.onDestroyPopUp, 2)
-    // },
 
     onDestroyPopUp() {
         this.node.opacity = 0;

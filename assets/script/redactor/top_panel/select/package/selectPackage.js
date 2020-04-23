@@ -1,4 +1,4 @@
-import baseComponent from "../../helpers/baseComponent";
+import baseComponent from "../../../../helpers/baseComponent";
 
 
 cc.Class({
@@ -87,6 +87,7 @@ cc.Class({
     },
 
     onTouchPackageItem(e) {
+        cc.log('package')
         let value = e.getUserData().value;
         let id = e.getUserData().id;
         this.packageName.string = value;

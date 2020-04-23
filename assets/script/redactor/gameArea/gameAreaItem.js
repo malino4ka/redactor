@@ -1,4 +1,4 @@
-import baseComponent from "./helpers/baseComponent";
+import baseComponent from "../../helpers/baseComponent";
 
 
 cc.Class({
@@ -113,6 +113,9 @@ cc.Class({
         _itemAngle: {
             default: null,
         },
+        _a: {
+            default: null,
+        },
 
     },
 
@@ -184,19 +187,16 @@ cc.Class({
     },
 
     closeItemClick() {
+        cc.log('star')
         if (this._itemName === "key") {
-            this._globalVariable.setKeyCount(0);
+            this._globalVariable.removeKeyCount();
         }
         if (this._itemName === "gate") {
-            this._globalVariable.setGateCount(0);
+            this._globalVariable.removeGateCount();
         }
         if (this._itemName === "star") {
-            this._globalVariable.setStarsCount(-1);
-            cc.log(this._globalVariable.getStarsCount())
+            this._globalVariable.starsCountDecrement();
         }
-        let closeItem = new cc.Event.EventCustom('CloseItem', true);
-        closeItem.setUserData({ name: this._itemName });
-        cc.systemEvent.dispatchEvent(closeItem);
         this.node.destroy();
     },
 

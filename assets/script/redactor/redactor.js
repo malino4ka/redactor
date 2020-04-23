@@ -1,4 +1,4 @@
-import baseComponent from "./helpers/baseComponent";
+import baseComponent from "../helpers/baseComponent";
 
 
 cc.Class({
@@ -115,6 +115,13 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        this._globalVariable.starsCountReset();
+        this._globalVariable.resetKeyCount();
+        this._globalVariable.resetGateCount();
+        cc.log(this._globalVariable.getKeyCount())
+        cc.log(this._globalVariable.getGateCount())
+        cc.log(this._globalVariable.getStarsCount())
+
         this.scheduleOnce(this.initGameItemsRequest, 1)
         cc.systemEvent.on(this._mapEvents.REDACTOR_GAME_AREA_INIT_RESPONSE, this.onInitGameItemsResponse, this);
         cc.systemEvent.on(this._mapEvents.REDACTOR_SAVE_ROUND_RESPONSE, this.onSaveRoundResponse, this);
@@ -125,7 +132,7 @@ cc.Class({
 
         cc.systemEvent.on("TouchCustomizeItem", this.onTouchCustomizeItem, this);
         cc.systemEvent.on("TouchAssetsItem", this.onTouchAssetsItem, this);
-        cc.systemEvent.on("eventClickSave", this.onSave, this);
+        cc.systemEvent.on("eventClickSave", this.onUserDataSave, this);
 
     },
 
@@ -133,9 +140,9 @@ cc.Class({
 
     },
 
-    onSave() {
-        this.scheduleOnce(this.onUserDataSave, 1)
-    },
+    // onSave() {
+    //     this.scheduleOnce(this.onUserDataSave, 1)
+    // },
 
     onUserDataSave() {
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));

@@ -2,7 +2,7 @@ import Socket from "./Socket";
 import mapEvents from "./mapEvents";
 import globalVariable from "./globalVariable";
 import mapGameAreiaItem from "./mapGameAreiaItem";
-import mapError from "./mapError";
+
 
 cc.Class({
     extends: cc.Component,
@@ -12,7 +12,6 @@ cc.Class({
         this._mapEvents = mapEvents;
         this._globalVariable = globalVariable;
         this._mapGameAreiaItem = mapGameAreiaItem;
-        this._mapError = mapError;
     },
 
     // properties: {

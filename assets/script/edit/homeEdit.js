@@ -112,11 +112,14 @@ cc.Class({
 
         _arrayRandom: {
             default: [],
+        },
+
+        _a: {
+
+            default: null,
         }
 
     },
-
-    // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
 
@@ -135,18 +138,17 @@ cc.Class({
         cc.systemEvent.on("TouchCustomizeItem", this.onTouchCustomizeItem, this);
         cc.systemEvent.on("TouchAssetsItem", this.onTouchAssetsItem, this);
 
-        cc.systemEvent.on("eventClickSave", this.onUserData, this);
+        cc.systemEvent.on("eventClickSave", this.onUserDataSave, this);
 
-        // cc.sys.localStorage.setItem('userData', JSON.stringify({}));
     },
 
     start() {
 
     },
 
-    onUserData() {
-        this.scheduleOnce(this.onUserDataSave, 1)
-    },
+    // onUserData() {
+    //     this.scheduleOnce(this.onUserDataSave, 1)
+    // },
 
     onUserDataSave() {
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
@@ -272,14 +274,24 @@ cc.Class({
             cc.log(a)
             if (a.items.key) {
                 this._globalVariable.setKeyCount(1);
+                cc.log(this._globalVariable.getKeyCount())
+            }
+            else {
+                this._globalVariable.setKeyCount(0);
+                cc.log(this._globalVariable.getKeyCount())
             }
             if (a.items.gate) {
-                this._globalVariable.setGateCount(1);
+                this._globalVariable.setGatesCount(1);
+                cc.log(this._globalVariable.getGateCount())
+            }
+            else {
+                this._globalVariable.setGatesCount(0);
+                cc.log(this._globalVariable.getGateCount())
             }
             if (a.items.star) {
                 let arr = a.items.star.arr;
-                cc.log(arr)
                 this._globalVariable.setStarsCount(arr.length);
+                cc.log(this._globalVariable.getStarsCount())
             }
             this.editGameAreaItems(a);
         }

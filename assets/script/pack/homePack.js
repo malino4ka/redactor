@@ -20,7 +20,6 @@ cc.Class({
     onLoad() {
         this.initPacksRequest();
         cc.systemEvent.on(this._mapEvents.REDACTOR_GET_PACKAGES_RESPONSE, this.onInitPackItemsResponse, this);
-        // cc.sys.localStorage.setItem('editData', JSON.stringify({}));
     },
 
     initPacksRequest(event) {

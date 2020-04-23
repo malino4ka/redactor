@@ -8841,6 +8841,9 @@
     "_optArray": [],
     "_optValueStorage": null,
     "_tutorialId": null,
+    "_chooseTutorialName": "Choose tutorial",
+    "_chooseTutorialId": null,
+    "_tutorialArrayResponse": null,
     "_id": "6bhK3A74tIJ52Uz3ANk+kW"
   },
   {
