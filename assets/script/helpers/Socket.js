@@ -1,4 +1,3 @@
-import mapError from './mapError';
 
 let instance = null;
 let url = '';

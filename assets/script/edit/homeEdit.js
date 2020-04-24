@@ -138,7 +138,7 @@ cc.Class({
         cc.systemEvent.on("TouchCustomizeItem", this.onTouchCustomizeItem, this);
         cc.systemEvent.on("TouchAssetsItem", this.onTouchAssetsItem, this);
 
-        cc.systemEvent.on("eventClickSave", this.onUserDataSave, this);
+        cc.systemEvent.on("eventClickSave", this.onUserData, this);
 
     },
 
@@ -146,9 +146,9 @@ cc.Class({
 
     },
 
-    // onUserData() {
-    //     this.scheduleOnce(this.onUserDataSave, 1)
-    // },
+    onUserData() {
+        this.scheduleOnce(this.onUserDataSave, 0)
+    },
 
     onUserDataSave() {
         let userData = JSON.parse(cc.sys.localStorage.getItem('userData'));
